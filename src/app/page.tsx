@@ -11,28 +11,21 @@ import Hero from "@/components/Hero";
 import BlockGrid from "@/components/BlockGrid";
 import useBlocks from "@/hooks/useBlocks";
 import SkeletonCard from "@/components/SkeletonCard";
+import useUser from "@/hooks/useUser";
 
-const navigation = [
-  { name: 'Github', href: '#' },
-  { name: 'LinkedIn', href: '#' },
-  { name: 'Twitter', href: '#' },
-  { name: 'Blog', href: '#' },
-]
 
 export default function Home() {
 
-  const { blocks, isLoading, error } = useBlocks()
+  // Blocks
+  const { blocks, blocksIsLoading, blocksErr } = useBlocks()
+
+  const { user, userIsLoading, userErr } = useUser()
 
   return <>
     {/* Hero Section */}
-    <Hero
-      name="Saajan Bhatia"
-      headline="Full stack Software Engineer"
-      tagline="Check it out!"
-      navigation={navigation}
-    />
+    <Hero />
 
-    {isLoading && <SkeletonCard />}
+    {blocksIsLoading && <SkeletonCard />}
     {blocks && <BlockGrid blocks={blocks} />}
 
 

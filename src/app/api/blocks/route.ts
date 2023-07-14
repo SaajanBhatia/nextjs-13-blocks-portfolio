@@ -21,7 +21,8 @@ const createBlock = async (request: NextRequest) => {
 
     const block = await prisma.block.create({
         data: {
-            headline: headline
+            headline: headline,
+            url: ""
         }
     })
 

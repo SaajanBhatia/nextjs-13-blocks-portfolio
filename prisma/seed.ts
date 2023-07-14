@@ -7,7 +7,7 @@ async function main() {
         where: { username: "admin" },
         update: {},
         create: {
-            username: "admin",
+            username: "admin", // Permanent
             password: "$2a$12$meIMM.1Mj0CsnjO/392WX.L4YIvrruj4tSsQ8SteF83BM7RWgyn2m", // Password initially is Password_123
             displayName: "John Doe"
         }

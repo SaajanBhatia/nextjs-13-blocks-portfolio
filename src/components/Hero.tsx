@@ -1,24 +1,26 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Heading } from '@chakra-ui/react'
+import { Heading, Spinner } from '@chakra-ui/react'
 import Typewriter from "typewriter-effect";
-import { SocialNav } from '@/types/helpers';
 import { useSession } from 'next-auth/react';
 import AvatarMenu from './AvatarMenu';
+import useSocials from '@/hooks/useSocials';
+import { Socials } from '@prisma/client';
+import useUser, { userQuery } from '@/hooks/useUser';
+import LoadingPage from './LoadingPage';
 
-type heroProps = {
-    name: string,
-    headline: string,
-    tagline?: string,
-    navigation: SocialNav[],
-}
 
-export default function Hero(props: heroProps) {
+
+export default function Hero() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const { data: session, status } = useSession()
 
-    // Status: "authenticated" | "loading" | "unauthenticated"
+    // Socials
+    const { socials, isSocialsLoading, socialsErr } = useSocials()
+    const { user, userIsLoading, userErr } = useUser()
+
+    if (userIsLoading) return <LoadingPage />
 
     return (
         <div className="bg-white">
@@ -27,7 +29,7 @@ export default function Hero(props: heroProps) {
                     <div className="flex lg:flex-1">
                         <a href="/" className="-m-1.5 p-1.5">
                             <Heading as='h4' size='md' color={"black"}>
-                                {props.name}
+                                {user ? user.displayName : ""}
                             </Heading>
                         </a>
                     </div>
@@ -42,11 +44,13 @@ export default function Hero(props: heroProps) {
                         </button>
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
-                        {props.navigation.map((item) => (
-                            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                        {socials && socials.map((item) => (
+                            <a key={item.name} href={item.url} className="text-sm font-semibold leading-6 text-gray-900">
                                 {item.name}
                             </a>
                         ))}
+
+                        {isSocialsLoading && <Spinner color={'black.400'} />}
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
 
@@ -60,7 +64,7 @@ export default function Hero(props: heroProps) {
                                 </>
                             ) : (
                                 <>
-                                    <AvatarMenu name={props.name} />
+                                    <AvatarMenu name={user ? user.displayName : ""} />
                                 </>
                             )
                         }
@@ -73,7 +77,7 @@ export default function Hero(props: heroProps) {
                         <div className="flex items-center justify-between">
                             <a href="#" className="-m-1.5 p-1.5">
                                 <Heading as='h4' size='md' color={"black"}>
-                                    {props.name}
+                                    {user ? user.displayName : ""}
                                 </Heading>
                             </a>
                             <button
@@ -88,10 +92,10 @@ export default function Hero(props: heroProps) {
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    {props.navigation.map((item) => (
+                                    {socials && socials.map((item) => (
                                         <a
                                             key={item.name}
-                                            href={item.href}
+                                            href={item.url}
                                             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                         >
                                             {item.name}
@@ -112,7 +116,7 @@ export default function Hero(props: heroProps) {
                                             </>
                                         ) : (
                                             <>
-                                                <AvatarMenu name={props.name} />
+                                                <AvatarMenu name={user ? user.displayName : ""} />
                                             </>
                                         )
                                     }
@@ -162,7 +166,7 @@ export default function Hero(props: heroProps) {
                                 onInit={(typewriter) => {
                                     typewriter
                                         .pauseFor(2500)
-                                        .typeString(`${props.name}`)
+                                        .typeString(`${user ? user.displayName : ""}`)
                                         .pauseFor(3000)
                                         .deleteChars(13)
                                         .pauseFor(500)
@@ -171,7 +175,10 @@ export default function Hero(props: heroProps) {
                             />
                         </Heading>
                         <p className="mt-6 text-lg leading-8 text-gray-600">
-                            {props.headline}
+                            {user ? user.headline : ""}
+                        </p>
+                        <p className="mt-3 text-md leading-6 text-gray-500">
+                            {user ? user.tagline : ""}
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
