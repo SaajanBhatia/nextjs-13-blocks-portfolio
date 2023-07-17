@@ -29,6 +29,18 @@ function UpdateSocialsCard(props: UpdateSocialsProps) {
     const [newSocialName, setNewSocialName] = useState("")
     const [newSocialURL, setNewSocialURL] = useState("")
 
+    const createSocial = () => {
+        if (newSocialName !== "" && newSocialURL !== "") {
+            console.log("Creating Social")
+            createSocialMutation.mutate({ socialName: newSocialName, socialURL: newSocialURL })
+        }
+    }
+
+    const deleteSocial = (id: string) => {
+        deleteSocialMutation.mutate(id)
+    }
+
+
 
 
     return (
@@ -50,7 +62,7 @@ function UpdateSocialsCard(props: UpdateSocialsProps) {
                         </FormControl>
                     </CardBody>
                     <CardFooter>
-                        <Button>Create</Button>
+                        <Button onClick={createSocial}>Create</Button>
                     </CardFooter>
                 </Card>
 
@@ -67,7 +79,7 @@ function UpdateSocialsCard(props: UpdateSocialsProps) {
                                         <Link href={social.url} target='_blank'>
                                             <Button variant={'outline'}>View</Button>
                                         </Link>
-                                        <Button variant={'outline'} color={'red.400'}>Delete</Button>
+                                        <Button variant={'outline'} color={'red.400'} onClick={() => deleteSocial(social.id)}>Delete</Button>
                                     </CardFooter>
                                 </Card>
                             </>

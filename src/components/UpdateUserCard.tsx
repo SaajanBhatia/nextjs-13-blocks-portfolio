@@ -15,12 +15,21 @@ export type UpdateUserCardProps = {}
 
 function UpdateUserCard(props: UpdateUserCardProps) {
 
-    const { user, userIsLoading, userErr } = useUser()
+    const { user, userIsLoading, userErr, updateUserMutation } = useUser()
 
     const [userDisplayName, setUserDisplayName] = useState(user ? user.displayName : "")
     const [userHeadline, setUserHeadline] = useState(user ? user.headline : "")
     const [userAvatar, setUserAvatar] = useState(user ? user.avatarURL : "")
     const [userTagline, setUserTagline] = useState(user ? user.tagline : "")
+
+    const updateUser = () => {
+        updateUserMutation.mutate({
+            displayName: userDisplayName,
+            headline: userHeadline,
+            avatarURL: userAvatar,
+            tagline: userTagline
+        })
+    }
 
     return (
         <>
@@ -66,7 +75,7 @@ function UpdateUserCard(props: UpdateUserCardProps) {
                                 <Input type="text" value={userAvatar} onChange={(e) => setUserAvatar(e.target.value)} />
                             </FormControl>
 
-                            <Button color={'blue.300'}>
+                            <Button color={'blue.300'} onClick={updateUser}>
                                 Update User
                             </Button>
                         </CardBody>

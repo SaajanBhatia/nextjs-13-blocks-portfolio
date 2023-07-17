@@ -28,10 +28,27 @@ const useUser = () => {
         queryKey: ['user']
     })
 
+    const updateUser = async (user: { displayName: string, avatarURL: string, headline: string, tagline: string }) => {
+        const response = await axios.put(API_URL, {
+            displayName: user.displayName,
+            avatarURL: user.avatarURL,
+            headline: user.headline,
+            tagline: user.tagline
+        })
+        return response.data
+    }
+
+    const updateUserMutation = useMutation(updateUser, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['user']); // Invalidate the 'blocks' query key
+        },
+    })
+
     return {
         user,
         userIsLoading,
-        userErr
+        userErr,
+        updateUserMutation
     }
 }
 
