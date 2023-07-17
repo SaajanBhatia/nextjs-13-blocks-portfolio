@@ -3,7 +3,7 @@
  * DELETE a single block
  * UPDATE a single block
  */
-
+ 
 import { _requiresAuth, _requiresNoAuth, apiHandler } from "@/lib/helpers/apiHandler";
 import prisma from "@/lib/models/prisma";
 import { Block } from "@prisma/client";
@@ -19,7 +19,7 @@ const getBlock = async (request: NextRequest, { params }: { params: { blockID: s
         return new Response(JSON.stringify(block));
     }
     return new Response("Block not found", { status: 500 }); // If the block does not exist
-};
+}; 
 
 const deleteBlock = async (request: NextRequest, { params }: { params: { blockID: string } }) => {
     const blockID = params.blockID
@@ -32,7 +32,7 @@ const deleteBlock = async (request: NextRequest, { params }: { params: { blockID
     } catch (err) {
         return new Response(JSON.stringify(err), { status: 500 }) // If the block does not exist
     }
-}
+} 
 
 const updateBlock = async (request: NextRequest, { params }: { params: { blockID: string } }) => {
     const blockID = params.blockID

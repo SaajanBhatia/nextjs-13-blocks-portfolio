@@ -1,7 +1,7 @@
 /**
  * GET all blocks
  * CREATE new block
- */
+ */ 
 import prisma from "@/lib/models/prisma";
 import { NextRequest } from "next/server";
 import { _requiresAuth, _requiresNoAuth, apiHandler } from "@/lib/helpers/apiHandler";

@@ -38,13 +38,13 @@ function AvatarMenu(props: AvatarMenuProps) {
                 <PopoverHeader>{props.name}</PopoverHeader>
                 <ButtonGroup size='sm' m={3} p={3}>
                     <Link href="/admin" passHref>
-                        <Button textColor={'black'}>
+                        <Button >
                             Admin
                         </Button>
                     </Link>
 
                     <Link href="/api/auth/signout" passHref>
-                        <Button textColor={'black'}>
+                        <Button>
                             Sign Out
                         </Button>
                     </Link>

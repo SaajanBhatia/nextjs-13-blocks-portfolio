@@ -13,7 +13,35 @@ import CodeIcon from '@mui/icons-material/Code';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import DevicesIcon from '@mui/icons-material/Devices';
 
-export const iconHandler = (iconName?: string): React.ReactNode => {
+export type IconType =
+    | 'LinkedInIcon'
+    | 'GitHubIcon'
+    | 'AddIcon'
+    | 'BookmarkAddedIcon'
+    | 'LockIcon'
+    | 'ArticleIcon'
+    | 'TwitterIcon'
+    | 'FacebookIcon'
+    | 'CodeIcon'
+    | 'HeadphonesIcon'
+    | 'DevicesIcon'
+    | null;
+
+export const availableIcons: IconType[] = [
+    "LinkedInIcon",
+    "GitHubIcon",
+    "AddIcon",
+    "BookmarkAddedIcon",
+    "LockIcon",
+    "ArticleIcon",
+    "TwitterIcon",
+    "FacebookIcon",
+    "CodeIcon",
+    "HeadphonesIcon",
+    "DevicesIcon",
+]
+
+export const iconHandler = (iconName?: IconType | string | null): React.ReactNode => {
 
     if (!iconName) {
         return <AddIcon style={{ color: 'white' }} />
