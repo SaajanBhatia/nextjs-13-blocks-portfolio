@@ -7,15 +7,13 @@
 
 import prisma from "@/lib/models/prisma";
 import { NextRequest } from "next/server";
-import { authOptions } from "@/lib/auth/authOptions";
-import { getServerSession } from "next-auth";
 import { _requiresAuth, _requiresNoAuth, apiHandler } from "@/lib/helpers/apiHandler";
 
 const getAllSocials = async (request: NextRequest) => {
     const socials = await prisma.socials.findMany()
     return new Response(JSON.stringify(socials))
 }
-
+ 
 // Create
 const createSocial = async (request: NextRequest) => {
     const { socialName, socialURL } = await request.json()

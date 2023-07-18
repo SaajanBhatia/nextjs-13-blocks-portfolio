@@ -11,7 +11,7 @@ function BlockGrid(props: BlockGridType) {
 
     return (
         <Box m={5} p={5}>
-            <SimpleGrid gap={6} columns={{ base: 1, md: 2, lg: 3 }}>
+            <SimpleGrid gap={6} columns={{ base: 1, md: 2, lg: 3 }} id="grid">
                 {props.blocks.map((block: Block) => (
                     <>
                         <BlockCard

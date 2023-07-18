@@ -145,7 +145,7 @@ export default function Hero() {
                     <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                         <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                             Use my template!{' '}
-                            <a href="#" className="font-semibold text-indigo-600">
+                            <a href="https://github.com/SaajanBhatia/nextjs-13-blocks-portfolio" className="font-semibold text-indigo-600" target='_blank'>
                                 <span className="absolute inset-0" aria-hidden="true" />
                                 Clone Repo <span aria-hidden="true">&rarr;</span>
                             </a>
@@ -182,7 +182,7 @@ export default function Hero() {
                             {user ? user.tagline : ""}
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
-                            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+                            <a href="#grid" className="text-sm font-semibold leading-6 text-gray-900">
                                 Explore <span aria-hidden="true">→</span>
                             </a>
                         </div>

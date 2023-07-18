@@ -11,7 +11,7 @@ const getBlocks = async (request: NextRequest) => {
     const blocks = await prisma.block.findMany()
     return new Response(JSON.stringify(blocks))
 }
-
+ 
 const createBlock = async (request: NextRequest) => {
     const { headline, description, url, icon } = await request.json()
 

@@ -1,23 +1,32 @@
-# Use the official Node.js image as the base image
-FROM node:14-alpine
+# Using Node Alpine
+FROM node:18-alpine3.16
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Copy in Package 
+COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --quiet
+# Install Dependencies
+RUN npm install
 
-# Copy the entire project to the working directory
+
+# Copy into the app
 COPY . .
 
-# Build the Next.js app for production
+# Install prisma dependencies
+RUN npm i @prisma/client
+RUN npm install prisma typescript ts-node @types/node --save-dev 
+
+RUN npx prisma generate
+
+# Deploy and apply migrations
+RUN npx prisma migrate deploy
+
+# Run production build
 RUN npm run build
 
-# Expose the port that the Next.js app will run on
+# On port 3000
 EXPOSE 3000
 
-# Start the Next.js app
+# Start the production server
 CMD ["npm", "start"]
