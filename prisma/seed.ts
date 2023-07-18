@@ -1,14 +1,15 @@
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
 
 async function main() {
     const adminUser = await prisma.user.upsert({
         where: { username: "admin" },
         update: {},
         create: {
-            username: "admin", // Permanent
-            password: "$2a$12$meIMM.1Mj0CsnjO/392WX.L4YIvrruj4tSsQ8SteF83BM7RWgyn2m", // Password initially is Password_123
+            username: "admin",
+            password: bcrypt.hashSync("Password_123", 10),
             displayName: "John Doe"
         }
     })
