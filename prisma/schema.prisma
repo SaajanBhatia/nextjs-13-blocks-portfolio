@@ -23,7 +23,7 @@ model User {
 model Block {
   id          String  @id @unique @default(cuid())
   headline    String
-  description String?
+  description String? @db.LongText
   url         String
   icon        String?
 }

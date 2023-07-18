@@ -42,7 +42,7 @@ const useBlocks = () => {
         onSuccess: () => {
             queryClient.invalidateQueries(['blocks']); // Invalidate the 'blocks' query key
         },
-    })
+    }) 
 
     const updateBlock = async (block: Block) => {
         const response = await axios.put(API_URL + "/" + block.id, {
